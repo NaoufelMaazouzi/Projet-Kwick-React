@@ -1,0 +1,1 @@
+export const myLocalStorage = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE))

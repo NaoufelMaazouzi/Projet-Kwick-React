@@ -1,0 +1,162 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-size: 17px;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/******************************************* SECTION MESSAGES **********************************************/
+
+.sectionMessages {
+    display: flex;
+    height: 80vh;
+    width: 80%;
+    flex-wrap: wrap;
+}
+
+.messagesContainer {
+    width: 100%;
+    height: 93%;
+    overflow-y: scroll;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
+
+/******************************************* TYPING BAR **********************************************/
+
+.typingBar {
+    height: 7%;
+    width: 100%;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.searchIcon {
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 1vw;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.icon {
+    padding: 10px;
+    min-width: 40px;
+}
+
+.inputMessage {
+    text-indent: 10px;
+    padding: 0.6em 3vw;
+    font-size: 1em;
+}
+
+.inputMessage::placeholder {
+    color: #999;
+}
+
+.divMessages {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em 1em;
+}
+
+.messageBubble {
+    width: 40vw;
+    padding: 1em 1em;
+    word-wrap: break-word;
+    position: relative;
+    background: #a9d4c5;
+    border-radius: 0.4em;
+}
+
+.messageBubble:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 16px solid transparent;
+    border-right-color: #a9d4c5;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -8px;
+    margin-left: -16px;
+}
+
+.myMessages {
+    width: 40vw;
+    padding: 1em 1em;
+    margin-left: 38%;
+    word-wrap: break-word;
+    position: relative;
+    background: #a5bc5f;
+    border-radius: 0.4em;
+}
+
+.myMessages:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 16px solid transparent;
+    border-left-color: #a5bc5f;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -8px;
+    margin-right: -16px;
+}
+
+.divAvatar {
+    width: 5vw;
+    word-wrap: break-word;
+}
+
+.userName {
+    margin: 0;
+}
+
+.contentMessage {
+    padding-left: 5%;
+    margin: 0;
+    align-self: center;
+}
+
+.date {
+    margin-top: 0;
+    margin-left: 60%;
+}
+
+.dateFromPeople {
+    width: 100%;
+    margin-left: 26%;
+    margin-top: 0;
+}
+
+.myMessagesContainer {
+    width: 93%;
+}
+
+.dateContainer {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+}

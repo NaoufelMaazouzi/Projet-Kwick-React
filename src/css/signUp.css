@@ -1,0 +1,74 @@
+.formSignup {
+    background: #fff;
+    padding: 2em 4em 2em;
+    max-width: 400px;
+    margin: 50px auto 0;
+    box-shadow: 0 0 1em rgb(163, 163, 163);
+    border-radius: 2px;
+}
+
+.titleSignup {
+    margin: 0 0 50px 0;
+    padding: 10px;
+    text-align: center;
+    font-size: 30px;
+    color: darken(#e5e5e5, 50%);
+    border-bottom: solid 1px #e5e5e5;
+}
+.formSignup p {
+    margin: 0 0 2.5em 0;
+    position: relative;
+}
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    margin: 0;
+}
+.inputSignup {
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    font-size: 1.6em;
+    border-radius: 2px;
+    cursor: text;
+    padding: 0.3em 0;
+}
+.inputSignup:focus {
+    background: #fff;
+}
+input[type="submit"] {
+    background: rgba(148, 186, 101, 0.7);
+    box-shadow: 0 3px 0 0 darken(rgba(148, 186, 101, 0.7), 10%);
+    border-radius: 2px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2em;
+    line-height: 1.6em;
+    margin: 2em 0 0;
+    padding: 0.3em 0;
+    text-shadow: 0 1px #68b25b;
+}
+input[type="submit"]:hover {
+    background: rgba(148, 175, 101, 1);
+    text-shadow: 0 1px 3px darken(rgba(148, 186, 101, 0.7), 30%);
+}
+input[type="submit"]:hover {
+}
+.inputSignup::placeholder {
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    color: #999;
+    font-size: 16px;
+    display: inline-block;
+    padding: 4px 10px;
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.errorMessage {
+    color: red;
+}
