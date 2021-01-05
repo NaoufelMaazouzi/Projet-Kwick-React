@@ -12,7 +12,7 @@ function Navbar(props) {
         existingId = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)).id;
     }
     const handleDeconnexion = async () => {
-        await Axios.get(`http://greenvelvet.alwaysdata.net/kwick/api/logout/${existingToken}/${existingId}`)
+        await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/logout/${existingToken}/${existingId}`)
             .then(data => {
                 if (data.data.result.status === 'done') {
                     localStorage.clear();

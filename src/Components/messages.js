@@ -19,7 +19,7 @@ function Messages() {
     const [isError, setIsError] = useState(false);
 
     const fetchData = async () => {
-        await Axios.get(`http://greenvelvet.alwaysdata.net/kwick/api/talk/list/${existingToken}/0`)
+        await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/talk/list/${existingToken}/0`)
             .then(data => {
                 setMessages(data.data.result.talk);
                 scrollToBottom();
@@ -48,7 +48,7 @@ function Messages() {
             message: ''
         },
         onSubmit: async (e) => {
-            await Axios.get(`http://greenvelvet.alwaysdata.net/kwick/api/say/${existingToken}/${existingId}/${encodeURI(formik.values.message)}`)
+            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/say/${existingToken}/${existingId}/${encodeURI(formik.values.message)}`)
                 .then(async () => {
                     fetchData();
                     formik.values.message = ''

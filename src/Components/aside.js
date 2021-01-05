@@ -44,7 +44,7 @@ function Aside() {
 
     useEffect(() => {
         async function fetchData() {
-            await Axios.get(`http://greenvelvet.alwaysdata.net/kwick/api/user/logged/${existingToken}`)
+            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/user/logged/${existingToken}`)
                 .then(data => {
                     setUsersConnected(data.data.result.user)
                 })

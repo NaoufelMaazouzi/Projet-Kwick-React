@@ -30,7 +30,7 @@ function Login() {
             password: ''
         },
         onSubmit: async (e) => {
-            await Axios.get(`http://greenvelvet.alwaysdata.net/kwick/api/login/${e.name}/${e.password}`)
+            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/login/${e.name}/${e.password}`)
                 .then(data => {
                     if (data.data.result.status === 'done') {
                         setAuthTokens(data.data.result);
