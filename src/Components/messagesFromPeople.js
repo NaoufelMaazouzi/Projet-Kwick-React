@@ -3,14 +3,16 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 function MessagesFromPeople(props) {
-    const { message, key } = props;
+    const { message } = props;
 
     return (
         <>
             {message &&
-                <div className="divMessages" key={key}>
+                <div className="divMessages">
                     <div className="divAvatar">
-                        <Avatar alt="Avatar">{message.user_name.substring(0, 1)}</Avatar>
+                        <div className="divAlignAvatar">
+                            <Avatar alt="Avatar">{message.user_name.substring(0, 1)}</Avatar>
+                        </div>
                         <p className="userName">{message.user_name}</p>
                     </div>
                     <div className="messageBubble">

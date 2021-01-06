@@ -8,32 +8,40 @@ import {
 } from "react-router-dom";
 import { AuthContext } from "./Context/auth";
 import PrivateRoute from './ReactRouterRoutes/privateRoute';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Login from './Components/login';
 
 
 function App() {
-  const existingToken = localStorage.getItem('myAuthInLocalStorage');
-  const [authTokens, setAuthTokens] = useState(existingToken);
+  /*Get localStorage*/
+  const existingLocalStorage = localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE);
+  let token, id, username;
+  if (existingLocalStorage) {
+    /*Check if there are something in localStorage and get token, id & username from localStorage*/
+    ({ token, username, id } = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)));
+  }
+  const [authTokens, setAuthTokens] = useState(token);
 
+  /*Method to set token, id & username in localStorage*/
   const setTokens = (data) => {
-
     let authData =
     {
       "token": data.token,
       "id": data.id,
       "username": data.message.split(" ").splice(-1).toString()
     }
-    localStorage.setItem("myAuthInLocalStorage", JSON.stringify(authData));
+    localStorage.setItem(process.env.REACT_APP_MY_LOCAL_STORAGE, JSON.stringify(authData));
     setAuthTokens(data);
   }
+
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
         <div className="App">
-          <Navbar isLoggedIn={authTokens} />
+          <Navbar token={token} id={id} />
           <Switch>
-            <PrivateRoute exact path="/" component={authTokens ? Messages : Login} />
+            <PrivateRoute exact path="/" component={authTokens ? () => <Messages token={token} username={username} id={id} />
+              : Login} />
             <PublicRoute path="/signup" component={SignUp} />
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/:id" component={Login} />

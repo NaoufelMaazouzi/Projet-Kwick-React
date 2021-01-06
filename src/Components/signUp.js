@@ -1,12 +1,12 @@
 import '../css/signUp.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import Axios from 'axios';
 import { useAuth } from "../Context/auth";
 import Alert from '@material-ui/lab/Alert';
 
-
+/*Method to validate values from signup form*/
 const validate = values => {
     let errors = {};
 
@@ -23,23 +23,28 @@ const validate = values => {
     }
     return errors;
 }
+
 function SignUp() {
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    /*Declare all states*/
     const [isError, setIsError] = useState(false);
     const { setAuthTokens } = useAuth();
+    let history = useHistory();
 
+    /*Using react formik to simplify form handling*/
     const formik = useFormik({
         initialValues: {
             name: '',
             email: '',
             password: ''
         },
+        /*Get method to signup user when submiting form*/
         onSubmit: async (e) => {
-            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/signup/${e.name}/${e.password}`)
+            await Axios.get(`${process.env.REACT_APP_API_URL}signup/${e.name}/${e.password}`)
                 .then(data => {
                     if (data.data.result.status === 'done') {
+                        /*Call the SetAuthTokens method from App.js to set token, id & username of the user logged in localStorage*/
                         setAuthTokens(data.data.result);
-                        setLoggedIn(true);
+                        history.push('/');
                     } else {
                         setIsError(true);
                     }
@@ -50,10 +55,6 @@ function SignUp() {
         },
         validate
     })
-
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
-    }
 
     return (
         <form className="formSignup" onSubmit={formik.handleSubmit}>
@@ -67,8 +68,9 @@ function SignUp() {
                     placeholder="Nom"
                     className="inputSignup"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.name} />
-                {formik.errors.name && <div className="errorMessage">{formik.errors.name}</div>}
+                {formik.touched.name && formik.errors.name && <div className="errorMessage">{formik.errors.name}</div>}
             </p>
             <p>
                 <input
@@ -78,8 +80,9 @@ function SignUp() {
                     placeholder="Email"
                     className="inputSignup"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.email} />
-                {formik.errors.email && <div className="errorMessage">{formik.errors.email}</div>}
+                {formik.touched.email && formik.errors.email && <div className="errorMessage">{formik.errors.email}</div>}
             </p>
             <p>
                 <input
@@ -89,8 +92,9 @@ function SignUp() {
                     placeholder="Mot de passe"
                     className="inputSignup"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.password} />
-                {formik.errors.password && <div className="errorMessage">{formik.errors.password}</div>}
+                {formik.touched.password && formik.errors.password && <div className="errorMessage">{formik.errors.password}</div>}
             </p>
             <p>
                 <input type="submit" value="Créer mon compte" id="submit" />

@@ -1,12 +1,12 @@
 import '../css/signUp.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import Axios from 'axios';
 import { useAuth } from "../Context/auth";
 import Alert from '@material-ui/lab/Alert';
 
-
+/*Method to validate values from login form*/
 const validate = values => {
     let errors = {};
 
@@ -18,23 +18,28 @@ const validate = values => {
     }
     return errors;
 }
+
 function Login() {
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    /*Declare all states*/
     const [isError, setIsError] = useState(false);
     const { setAuthTokens } = useAuth();
+    let history = useHistory();
 
+    /*Using react formik to simplify form handling*/
     const formik = useFormik({
         initialValues: {
             name: '',
             email: '',
             password: ''
         },
+        /*Get method to login user when submiting form*/
         onSubmit: async (e) => {
-            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/login/${e.name}/${e.password}`)
+            await Axios.get(`${process.env.REACT_APP_API_URL}login/${e.name}/${e.password}`)
                 .then(data => {
                     if (data.data.result.status === 'done') {
+                        /*Call the SetAuthTokens method from App.js to set token, id & username of the user logged in localStorage*/
                         setAuthTokens(data.data.result);
-                        setLoggedIn(true);
+                        history.push('/');
                     } else {
                         setIsError(true);
                     }
@@ -46,13 +51,9 @@ function Login() {
         validate
     })
 
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
-    }
-
     return (
         <form className="formSignup" onSubmit={formik.handleSubmit}>
-            {isError && <Alert severity="error">Erreur de conexion. Veuillez choisir un autre nom et mot de passe</Alert>}
+            {isError && <Alert severity="error">Erreur de conexion. Mauvais nom ou mot de passe</Alert>}
             <h2 className='titleSignup'>Se connecter</h2>
             <p>
                 <input
@@ -62,8 +63,9 @@ function Login() {
                     placeholder="Nom"
                     className="inputSignup"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.name} />
-                {formik.errors.name && <div className="errorMessage">{formik.errors.name}</div>}
+                {formik.touched.name && formik.errors.name && <div className="errorMessage">{formik.errors.name}</div>}
             </p>
             <p>
                 <input
@@ -73,8 +75,9 @@ function Login() {
                     placeholder="Mot de passe"
                     className="inputSignup"
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     value={formik.values.password} />
-                {formik.errors.password && <div className="errorMessage">{formik.errors.password}</div>}
+                {formik.touched.password && formik.errors.password && <div className="errorMessage">{formik.errors.password}</div>}
             </p>
             <p>
                 <input type="submit" value="Me connecter" id="submit" />

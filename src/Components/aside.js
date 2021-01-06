@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
-import { myLocalStorage } from '../globalVariables';
-
-
 
 export const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -37,14 +34,13 @@ export const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-function Aside() {
-    const existingToken = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)).token;
+function Aside(props) {
+    const { token } = props;
     const [usersConnected, setUsersConnected] = useState([]);
-
 
     useEffect(() => {
         async function fetchData() {
-            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/user/logged/${existingToken}`)
+            await Axios.get(`${process.env.REACT_APP_API_URL}user/logged/${token}`)
                 .then(data => {
                     setUsersConnected(data.data.result.user)
                 })
@@ -59,7 +55,7 @@ function Aside() {
             <section>
                 <h4>Personnes connectées</h4>
                 <ul className="connectesList">
-                    <div className={usersConnected && usersConnected.length > 9 ? "scrollDiv" : null}>
+                    <div className={usersConnected && usersConnected.length > 10 ? "scrollDiv" : null}>
                         {usersConnected && usersConnected.map((user, i) => {
                             return <li className="userBadge" key={user}>
                                 <div>

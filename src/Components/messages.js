@@ -2,24 +2,26 @@ import '../css/messages.css';
 import Axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import Aside from './aside';
-import { useFormik } from 'formik';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { myLocalStorage } from '../globalVariables';
+import React from 'react';
 import MessagesFromMe from './messagesFromMe';
 import MessagesFromPeople from './messagesFromPeople';
+import IdleTimer from 'react-idle-timer';
+import TimeoutDialog from './timeoutDialog';
+import TypingBar from './typingBar';
 
-
-function Messages() {
-    const existingToken = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)).token;
-    const existingId = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)).id;
-    const existingUsername = JSON.parse(localStorage.getItem(process.env.REACT_APP_MY_LOCAL_STORAGE)).username;
-
+function Messages(props) {
+    /*Declare all states*/
+    const { token, username, id } = props;
     const [messages, setMessages] = useState([]);
-    const [isError, setIsError] = useState(false);
+    const [sessionTimeout, setSessionTimeout] = useState(1000 * 1200 * 1);
+    const [isTimedOut, setIsTimedOut] = useState(false);
+    const [open, setOpen] = useState(false);
+    let idleTimer = null;
+    const messagesEndRef = useRef(null);
 
+    /*Method to fetch all messages from the API*/
     const fetchData = async () => {
-        await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/talk/list/${existingToken}/0`)
+        await Axios.get(`${process.env.REACT_APP_API_URL}talk/list/${token}/0`)
             .then(data => {
                 setMessages(data.data.result.talk);
                 scrollToBottom();
@@ -27,75 +29,59 @@ function Messages() {
             .catch(err => console.log(err))
     }
 
-    const messagesEndRef = useRef(null)
-
+    /*Method to scroll to bottom of chat*/
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
-
-    const validate = values => {
-        let errors = {};
-
-        if (!values.message) {
-            errors.message = "Message requis";
-        }
-        return errors;
-    }
-
-    const formik = useFormik({
-        initialValues: {
-            message: ''
-        },
-        onSubmit: async (e) => {
-            await Axios.get(`https://greenvelvet.alwaysdata.net/kwick/api/say/${existingToken}/${existingId}/${encodeURI(formik.values.message)}`)
-                .then(async () => {
-                    fetchData();
-                    formik.values.message = ''
-                })
-                .catch((e) => {
-                    setIsError(true);
-                })
-        },
-        validate
-    })
-
+    /*Fetch data when the component mount*/
     useEffect(() => {
         fetchData();
     }, []);
 
+    /*Method to clear timeOut when user do an action on the page*/
+    const onAction = () => {
+        setIsTimedOut(false);
+    }
 
+    /*Method to open a pop-up if the user is inactive for 20min*/
+    const onIdle = () => {
+        if (isTimedOut) {
+            setOpen(true);
+        } else {
+            setOpen(false);
+            idleTimer.reset();
+            setIsTimedOut(true);
+        }
+    }
 
     return (
-        <main>
-            <Aside />
-            <section className="sectionMessages">
-                <div className="messagesContainer">
-                    {messages && messages.map((message, key) => {
-                        console.log('messageusername:', message.user_name, 'moi:', existingUsername)
-                        return message.user_name !== existingUsername ? <MessagesFromPeople message={message} key={key} />
-                            : <MessagesFromMe message={message} key={key} />
-                    })}
-                    <div ref={messagesEndRef} />
-                </div>
-                <div className="typingBar">
-                    <form onSubmit={formik.handleSubmit}>
-                        <div className="input-icons">
-                            <FontAwesomeIcon className="searchIcon" icon={faSearch} />
-                            <input
-                                type="text"
-                                className="inputMessage"
-                                id="message"
-                                name="message"
-                                placeholder="Votre message..."
-                                onChange={formik.handleChange}
-                                value={formik.values.message}
-                            />
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </main >
+        <>
+            <IdleTimer
+                ref={ref => { idleTimer = ref }}
+                element={document}
+                onActive={onAction}
+                onIdle={onIdle}
+                onAction={onAction}
+                debounce={250}
+                timeout={sessionTimeout}
+            />
+            <TimeoutDialog open={open} setOpen={setOpen} />
+            <main>
+                <Aside token={token} />
+                <section className="sectionMessages">
+                    <div className="messagesContainer">
+                        {messages && messages.map((message, key) => {
+                            return message.user_name !== username ?
+                                <MessagesFromPeople message={message} key={key} />
+                                : <MessagesFromMe message={message} key={key} />
+                        })}
+                        <div ref={messagesEndRef} />
+                    </div>
+                    <TypingBar fetchData={fetchData} token={token} id={id} />
+                </section>
+            </main>
+        </>
     );
 }
 

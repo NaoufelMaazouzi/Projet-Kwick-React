@@ -10,13 +10,14 @@ html {
 main {
     display: flex;
     flex-wrap: wrap;
+    height: 90vh;
 }
 
 /******************************************* SECTION MESSAGES **********************************************/
 
 .sectionMessages {
     display: flex;
-    height: 80vh;
+    height: 100%;
     width: 80%;
     flex-wrap: wrap;
 }
@@ -34,15 +35,6 @@ main {
 .typingBar {
     height: 7%;
     width: 100%;
-}
-
-input[type="text"] {
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
 }
 
 .searchIcon {
@@ -64,6 +56,13 @@ input[type="text"] {
     text-indent: 10px;
     padding: 0.6em 3vw;
     font-size: 1em;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 7px 0px #989898;
 }
 
 .inputMessage::placeholder {
@@ -81,8 +80,9 @@ input[type="text"] {
     padding: 1em 1em;
     word-wrap: break-word;
     position: relative;
-    background: #a9d4c5;
+    background: #64b5f6;
     border-radius: 0.4em;
+    margin-left: 2%;
 }
 
 .messageBubble:after {
@@ -93,7 +93,7 @@ input[type="text"] {
     width: 0;
     height: 0;
     border: 16px solid transparent;
-    border-right-color: #a9d4c5;
+    border-right-color: #64b5f6;
     border-left: 0;
     border-bottom: 0;
     margin-top: -8px;
@@ -106,7 +106,7 @@ input[type="text"] {
     margin-left: 38%;
     word-wrap: break-word;
     position: relative;
-    background: #a5bc5f;
+    background: #8bc34a;
     border-radius: 0.4em;
 }
 
@@ -118,7 +118,7 @@ input[type="text"] {
     width: 0;
     height: 0;
     border: 16px solid transparent;
-    border-left-color: #a5bc5f;
+    border-left-color: #8bc34a;
     border-right: 0;
     border-bottom: 0;
     margin-top: -8px;
@@ -128,10 +128,17 @@ input[type="text"] {
 .divAvatar {
     width: 5vw;
     word-wrap: break-word;
+    text-align: center;
+}
+
+.divAlignAvatar {
+    display: flex;
+    justify-content: center;
 }
 
 .userName {
     margin: 0;
+    text-align: center;
 }
 
 .contentMessage {
