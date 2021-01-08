@@ -29,13 +29,16 @@ function TypingBar(props) {
                 return;
             }
             await Axios.get(`${process.env.REACT_APP_API_URL}say/${token}/${id}/${encodeURI(e.message)}`)
-                .then(async () => {
+                .then(async (data) => {
+                    if (data.data.result.status === 'failure') {
+                        throw new Error();
+                    }
                     /*Fetch data when submiting message & reset value of message*/
-                    fetchData();
+                    await fetchData();
                     formik.values.message = '';
                 })
-                .catch((e) => {
-                    console.log(e);
+                .catch(e => {
+                    /*console.log(e);*/
                 })
         },
         validate

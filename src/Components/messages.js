@@ -23,10 +23,15 @@ function Messages(props) {
     const fetchData = async () => {
         await Axios.get(`${process.env.REACT_APP_API_URL}talk/list/${token}/0`)
             .then(data => {
+                if (data.data.result.status === 'failure') {
+                    throw new Error();
+                }
                 setMessages(data.data.result.talk);
                 scrollToBottom();
             })
-            .catch(err => console.log(err))
+            .catch(e => {
+                /*console.log(e);*/
+            });
     }
 
     /*Function to scroll to bottom of chat*/

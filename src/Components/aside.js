@@ -42,9 +42,14 @@ function Aside(props) {
         async function fetchData() {
             await Axios.get(`${process.env.REACT_APP_API_URL}user/logged/${token}`)
                 .then(data => {
-                    setUsersConnected(data.data.result.user)
+                    if (data.data.result.status === 'failure') {
+                        throw new Error();
+                    }
+                    setUsersConnected(data.data.result.user);
                 })
-                .catch(err => console.log(err))
+                .catch(e => {
+                    /*console.log(e);*/
+                })
         }
         fetchData();
     }, []);

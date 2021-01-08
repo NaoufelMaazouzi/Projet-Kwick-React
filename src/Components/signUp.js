@@ -40,15 +40,16 @@ function SignUp() {
         onSubmit: async (e) => {
             await Axios.get(`${process.env.REACT_APP_API_URL}signup/${e.name}/${e.password}`)
                 .then(data => {
-                    if (data.data.result.status === 'done') {
-                        /*Call the SetAuthTokens Function from App.js to set token, id & username of the user logged in localStorage*/
-                        setAuthTokens(data.data.result);
-                        history.push('/');
-                    } else {
+                    if (data.data.result.status === 'failure') {
                         setIsError(true);
+                        throw new Error();
                     }
+                    /*Call the SetAuthTokens Function from App.js to set token, id & username of the user logged in localStorage*/
+                    setAuthTokens(data.data.result);
+                    history.push('/');
                 })
-                .catch((e) => {
+                .catch(e => {
+                    /*console.log(e);*/
                     setIsError(true)
                 })
         },

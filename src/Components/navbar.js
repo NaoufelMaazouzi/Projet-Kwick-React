@@ -10,12 +10,15 @@ function Navbar(props) {
     const handleDeconnexion = async () => {
         await Axios.get(`${process.env.REACT_APP_API_URL}logout/${token}/${id}`)
             .then(data => {
-                if (data.data.result.status === 'done') {
-                    localStorage.clear();
-                    history.go(0)
+                if (data.data.result.status === 'failure') {
+                    throw new Error();
                 }
+                localStorage.clear();
+                history.go(0);
             })
-            .catch(err => console.log(err))
+            .catch(e => {
+                /*console.log(e);*/
+            })
     };
 
     return (
