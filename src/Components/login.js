@@ -6,7 +6,7 @@ import Axios from 'axios';
 import { useAuth } from "../Context/auth";
 import Alert from '@material-ui/lab/Alert';
 
-/*Method to validate values from login form*/
+/*Function to validate values from login form*/
 const validate = values => {
     let errors = {};
 
@@ -37,7 +37,7 @@ function Login() {
             await Axios.get(`${process.env.REACT_APP_API_URL}login/${e.name}/${e.password}`)
                 .then(data => {
                     if (data.data.result.status === 'done') {
-                        /*Call the SetAuthTokens method from App.js to set token, id & username of the user logged in localStorage*/
+                        /*Call the SetAuthTokens function from App.js to set token, id & username of the user logged in localStorage*/
                         setAuthTokens(data.data.result);
                         history.push('/');
                     } else {

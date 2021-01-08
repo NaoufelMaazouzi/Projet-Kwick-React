@@ -19,7 +19,7 @@ function Messages(props) {
     let idleTimer = null;
     const messagesEndRef = useRef(null);
 
-    /*Method to fetch all messages from the API*/
+    /*Function to fetch all messages from the API*/
     const fetchData = async () => {
         await Axios.get(`${process.env.REACT_APP_API_URL}talk/list/${token}/0`)
             .then(data => {
@@ -29,7 +29,7 @@ function Messages(props) {
             .catch(err => console.log(err))
     }
 
-    /*Method to scroll to bottom of chat*/
+    /*Function to scroll to bottom of chat*/
     const scrollToBottom = () => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
@@ -39,12 +39,12 @@ function Messages(props) {
         fetchData();
     }, []);
 
-    /*Method to clear timeOut when user do an action on the page*/
+    /*Function to clear timeOut when user do an action on the page*/
     const onAction = () => {
         setIsTimedOut(false);
     }
 
-    /*Method to open a pop-up if the user is inactive for 20min*/
+    /*Function to open a pop-up if the user is inactive for 20min*/
     const onIdle = () => {
         if (isTimedOut) {
             setOpen(true);

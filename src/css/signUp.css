@@ -1,3 +1,5 @@
+/******************************************* SIGNUP & LOGIN **********************************************/
+
 .formSignup {
     background: #fff;
     padding: 2em 4em 2em;
@@ -54,8 +56,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background: rgba(148, 175, 101, 1);
     text-shadow: 0 1px 3px darken(rgba(148, 186, 101, 0.7), 30%);
-}
-input[type="submit"]:hover {
 }
 .inputSignup::placeholder {
     position: absolute;

@@ -4,7 +4,7 @@ aside {
     width: 20%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(241, 238, 238);
+    background-color: #f1eeee;
     box-shadow: 2px 0px 10px -1px #989898;
     z-index: 2;
 }
@@ -12,10 +12,20 @@ aside {
 .userBadge {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .textPuce {
     margin-left: 10%;
+    width: 100%;
+}
+
+.divTextPuce {
+    word-break: break-all;
+}
+
+.divBadge {
+    width: 100%;
 }
 
 section h4 {

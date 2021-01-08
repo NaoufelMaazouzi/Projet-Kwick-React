@@ -70,7 +70,9 @@ function Aside(props) {
                                         <Avatar alt="Avatar">{user !== null && user.substring(0, 1)}</Avatar>
                                     </StyledBadge>
                                 </div>
-                                <p className="textPuce">{user}</p>
+                                <div className="divTextPuce">
+                                    <p className="textPuce">{user}</p>
+                                </div>
                             </li>
                         })}
                     </div>

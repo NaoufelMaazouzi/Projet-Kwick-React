@@ -6,7 +6,7 @@ function Navbar(props) {
     const { token, id } = props;
     let history = useHistory();
 
-    /*Method to handle the deconnexion & clear the localStorage*/
+    /*Function to handle the deconnexion & clear the localStorage*/
     const handleDeconnexion = async () => {
         await Axios.get(`${process.env.REACT_APP_API_URL}logout/${token}/${id}`)
             .then(data => {

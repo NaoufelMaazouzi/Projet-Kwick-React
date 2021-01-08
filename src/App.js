@@ -22,7 +22,7 @@ function App() {
   }
   const [authTokens, setAuthTokens] = useState(token);
 
-  /*Method to set token, id & username in localStorage*/
+  /*Function to set token, id & username in localStorage*/
   const setTokens = (data) => {
     let authData =
     {
