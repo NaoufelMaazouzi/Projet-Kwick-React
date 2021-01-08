@@ -8,12 +8,13 @@ import MessagesFromPeople from './messagesFromPeople';
 import IdleTimer from 'react-idle-timer';
 import TimeoutDialog from './timeoutDialog';
 import TypingBar from './typingBar';
+import Alert from '@material-ui/lab/Alert';
 
 function Messages(props) {
     /*Declare all states*/
     const { token, username, id } = props;
     const [messages, setMessages] = useState([]);
-    const [sessionTimeout, setSessionTimeout] = useState(1000 * 1200 * 1);
+    const [sessionTimeout] = useState(1000 * 1200 * 1);
     const [isTimedOut, setIsTimedOut] = useState(false);
     const [open, setOpen] = useState(false);
     let idleTimer = null;
@@ -36,13 +37,13 @@ function Messages(props) {
 
     /*Function to scroll to bottom of chat*/
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
 
     /*Fetch data when the component mount*/
     useEffect(() => {
         fetchData();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     /*Function to clear timeOut when user do an action on the page*/
     const onAction = () => {
@@ -73,14 +74,19 @@ function Messages(props) {
             />
             <TimeoutDialog open={open} setOpen={setOpen} />
             <main>
-                <Aside token={token} />
+                <Aside token={token} setMessages={setMessages} scrollToBottom={scrollToBottom} />
                 <section className="sectionMessages">
                     <div className="messagesContainer">
-                        {messages && messages.map((message, key) => {
+
+                        {messages && messages.length ? messages.map((message, key) => {
                             return message.user_name !== username ?
                                 <MessagesFromPeople message={message} key={key} />
                                 : <MessagesFromMe message={message} key={key} />
-                        })}
+                        }) :
+                            <Alert variant="outlined" severity="error">
+                                Aucun messages !
+                            </Alert>
+                        }
                         <div ref={messagesEndRef} />
                     </div>
                     <TypingBar fetchData={fetchData} token={token} id={id} />

@@ -115,6 +115,10 @@ main {
     margin-left: -16px;
 }
 
+.noMessages {
+    background-color: red;
+}
+
 .myMessages {
     width: 40vw;
     padding: 1em 1em;
@@ -182,6 +186,8 @@ main {
     display: flex;
     justify-content: center;
 }
+
+/******************************************* MEDIA QUERIES FOR RESPONSIVE **********************************************/
 @media screen and (max-width: 1280px) {
     .messageBubble {
         margin-left: 8%;

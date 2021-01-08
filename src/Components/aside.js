@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 export const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -35,8 +38,11 @@ export const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 function Aside(props) {
-    const { token } = props;
+    const { token, setMessages, scrollToBottom } = props;
     const [usersConnected, setUsersConnected] = useState([]);
+    const [valueOfSelect, setValueOfSelect] = useState(0);
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -52,7 +58,22 @@ function Aside(props) {
                 })
         }
         fetchData();
-    }, []);
+    }, [token]);
+
+    const handleChangeTimestamp = async (e) => {
+        setValueOfSelect(e.target.value);
+        await Axios.get(`${process.env.REACT_APP_API_URL}talk/list/${token}/${e.target.value === 0 ? 0 : Math.round((+new Date() / 1000) - e.target.value)}`)
+            .then(data => {
+                if (data.data.result.status === 'failure') {
+                    throw new Error();
+                }
+                setMessages(data.data.result.talk);
+                scrollToBottom();
+            })
+            .catch(e => {
+                /*console.log(e);*/
+            });
+    }
 
 
     return (
@@ -60,7 +81,7 @@ function Aside(props) {
             <section>
                 <h4>Personnes connectées</h4>
                 <ul className="connectesList">
-                    <div className={usersConnected && usersConnected.length > 10 ? "scrollDiv" : null}>
+                    <div className={usersConnected && usersConnected.length > 7 ? "scrollDiv" : null}>
                         {usersConnected && usersConnected.map((user, i) => {
                             return <li className="userBadge" key={user}>
                                 <div>
@@ -80,6 +101,23 @@ function Aside(props) {
                                 </div>
                             </li>
                         })}
+                    </div>
+                    <div className="selectMessages">
+                        <h4>Quels messages afficher ?</h4>
+                        <FormControl >
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={valueOfSelect}
+                                onChange={handleChangeTimestamp}
+                            >
+                                <MenuItem value={1 * 60}>Dernières 10min</MenuItem>
+                                <MenuItem value={12 * 60 * 60}>Dernières 12h</MenuItem>
+                                <MenuItem value={24 * 60 * 60}>Dernières 24h</MenuItem>
+                                <MenuItem value={48 * 60 * 60}>Dernières 48h</MenuItem>
+                                <MenuItem value={0}>Afficher tout</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                 </ul>
             </section>

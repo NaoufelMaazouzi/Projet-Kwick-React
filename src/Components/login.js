@@ -56,7 +56,7 @@ function Login() {
         <form className="formSignup" onSubmit={formik.handleSubmit}>
             {isError && <Alert severity="error">Erreur de conexion. Mauvais nom ou mot de passe</Alert>}
             <h2 className='titleSignup'>Se connecter</h2>
-            <p>
+            <div className="divInputSingup">
                 <input
                     id="name"
                     name="name"
@@ -66,9 +66,9 @@ function Login() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.name} />
-                {formik.touched.name && formik.errors.name && <div className="errorMessage">{formik.errors.name}</div>}
-            </p>
-            <p>
+                {formik.touched.name && formik.errors.name && <Alert severity="error">{formik.errors.name}</Alert>}
+            </div>
+            <div className="divInputSingup">
                 <input
                     id="password"
                     name="password"
@@ -78,8 +78,8 @@ function Login() {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password} />
-                {formik.touched.password && formik.errors.password && <div className="errorMessage">{formik.errors.password}</div>}
-            </p>
+                {formik.touched.password && formik.errors.password && <Alert severity="error">{formik.errors.password}</Alert>}
+            </div>
             <p>
                 <input type="submit" value="Me connecter" id="submit" />
             </p>
