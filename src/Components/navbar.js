@@ -28,18 +28,18 @@ function Navbar(props) {
                     <ul className="navLinks">
                         {token ?
                             <>
-                                <Link to='/' className="Link">
+                                <Link to='/Projet-Kwick-React' className="Link">
                                     <li id="messages">Messages</li>
                                 </Link>
-                                <Link to='/login' onClick={handleDeconnexion} className="Link">
+                                <Link to='/Projet-Kwick-React/login' onClick={handleDeconnexion} className="Link">
                                     Se déconnecter
                                 </Link>
                             </> :
                             <>
-                                <Link to='/signup' className="Link">
+                                <Link to='/Projet-Kwick-React/signup' className="Link">
                                     <li>S'inscrire</li>
                                 </Link>
-                                <Link to='/login' className="Link">
+                                <Link to='/Projet-Kwick-React/login' className="Link">
                                     <li>Se connecter</li>
                                 </Link>
                             </>
