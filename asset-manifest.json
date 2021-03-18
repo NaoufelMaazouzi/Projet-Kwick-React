@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Projet-Kwick-React/static/css/main.b0863a8e.chunk.css",
+    "main.js": "/Projet-Kwick-React/static/js/main.308b2f77.chunk.js",
+    "main.js.map": "/Projet-Kwick-React/static/js/main.308b2f77.chunk.js.map",
+    "runtime-main.js": "/Projet-Kwick-React/static/js/runtime-main.b7351ee9.js",
+    "runtime-main.js.map": "/Projet-Kwick-React/static/js/runtime-main.b7351ee9.js.map",
+    "static/js/2.38e4075b.chunk.js": "/Projet-Kwick-React/static/js/2.38e4075b.chunk.js",
+    "static/js/2.38e4075b.chunk.js.map": "/Projet-Kwick-React/static/js/2.38e4075b.chunk.js.map",
+    "static/js/3.c642eae1.chunk.js": "/Projet-Kwick-React/static/js/3.c642eae1.chunk.js",
+    "static/js/3.c642eae1.chunk.js.map": "/Projet-Kwick-React/static/js/3.c642eae1.chunk.js.map",
+    "index.html": "/Projet-Kwick-React/index.html",
+    "static/css/main.b0863a8e.chunk.css.map": "/Projet-Kwick-React/static/css/main.b0863a8e.chunk.css.map",
+    "static/js/2.38e4075b.chunk.js.LICENSE.txt": "/Projet-Kwick-React/static/js/2.38e4075b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b7351ee9.js",
+    "static/js/2.38e4075b.chunk.js",
+    "static/css/main.b0863a8e.chunk.css",
+    "static/js/main.308b2f77.chunk.js"
+  ]
+}
