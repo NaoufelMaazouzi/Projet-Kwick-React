@@ -100,7 +100,7 @@ function SignUp() {
                 <input type="submit" value="Créer mon compte" id="submit" />
             </p>
             <p>
-                <Link to='/Projet-Kwick-React/login'>
+                <Link to='/login'>
                     J'ai déjà un compte
                 </Link>
             </p>

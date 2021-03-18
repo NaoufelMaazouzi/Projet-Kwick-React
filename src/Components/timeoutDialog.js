@@ -15,7 +15,7 @@ function TimeoutDialog(props) {
         setOpen(false);
         localStorage.clear();
         history.go(0)
-        history.push("/Projet-Kwick-React/login");
+        history.push("/login");
     }
 
     return (

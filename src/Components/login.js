@@ -84,7 +84,7 @@ function Login() {
                 <input type="submit" value="Me connecter" id="submit" />
             </p>
             <p>
-                <Link to='/Projet-Kwick-React/signup'>
+                <Link to='/signup'>
                     Je n'ai pas de compte
                 </Link>
             </p>

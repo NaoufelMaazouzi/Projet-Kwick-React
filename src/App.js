@@ -40,11 +40,11 @@ function App() {
         <div className="App">
           <Navbar token={token} id={id} />
           <Switch>
-            <PrivateRoute exact path="/Projet-Kwick-React" component={authTokens ? () => <Messages token={token} username={username} id={id} />
+            <PrivateRoute exact path="/" component={authTokens ? () => <Messages token={token} username={username} id={id} />
               : Login} />
-            <PublicRoute path="/Projet-Kwick-React/signup" component={SignUp} />
-            <PublicRoute path="/Projet-Kwick-React/login" component={Login} />
-            <PublicRoute path="/Projet-Kwick-React/:id" component={Login} />
+            <PublicRoute path="/signup" component={SignUp} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/:id" component={Login} />
           </Switch>
         </div>
       </Router >

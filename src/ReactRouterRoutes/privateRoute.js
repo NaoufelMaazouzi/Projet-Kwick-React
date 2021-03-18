@@ -13,7 +13,7 @@ function PrivateRoute({ component: Component, ...rest }) {
                 authTokens ? (
                     <Component {...props} />
                 ) : (
-                        <Redirect to="/Projet-Kwick-React/login" />
+                        <Redirect to="/login" />
                     )
             }
         />
